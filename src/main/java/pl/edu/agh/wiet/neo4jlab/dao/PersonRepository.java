@@ -16,7 +16,4 @@ public interface PersonRepository extends Neo4jRepository<Person, Long> {
 
     @Query("MATCH (p:Person) RETURN p")
     Stream<Person> streamAll();
-
-    @Query("MATCH (p:Person)-[r:WORKS_IN]->(c:Company) WHERE p.name = {0} RETURN p as person, r as workerRelationship, c")
-    List<WorkerQueryResult> getWorkerRelationshipForPerson(String name);
 }
