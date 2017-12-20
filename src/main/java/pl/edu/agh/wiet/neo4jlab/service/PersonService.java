@@ -32,6 +32,7 @@ public class PersonService {
     public void addWorkplace(Company company, Person person) {
         WorkerRelationship rel = new WorkerRelationship(person,company);
         person.setCompany(rel);
+        company.addWorker(rel);
         personRepository.save(person);
     }
 

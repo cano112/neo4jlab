@@ -19,7 +19,6 @@ public class StockItemRelationship {
 
     private double price;
 
-
     private StockItemRelationship() {}
 
     public StockItemRelationship(Company company, Product product, double price) {

@@ -47,6 +47,4 @@ public class CompanyService {
     public Stream<Company> streamAllCompanies() {
         return companyRepository.streamAll();
     }
-
-
 }

@@ -5,28 +5,21 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.edu.agh.wiet.neo4jlab.dao.CompanyRepository;
-import pl.edu.agh.wiet.neo4jlab.dao.StockItemRelationshipRepository;
-import pl.edu.agh.wiet.neo4jlab.model.queries.company.CustomerQueryResult;
-import pl.edu.agh.wiet.neo4jlab.model.queries.company.StockItemQueryResult;
-import pl.edu.agh.wiet.neo4jlab.model.queries.company.WorkersQueryResult;
-import pl.edu.agh.wiet.neo4jlab.model.queries.person.WorkerQueryResult;
-import pl.edu.agh.wiet.neo4jlab.model.relationships.StockItemRelationship;
+import pl.edu.agh.wiet.neo4jlab.model.results.CompanyRelationshipAggregate;
 import pl.edu.agh.wiet.neo4jlab.populator.GraphPopulator;
-
-import java.util.List;
+import pl.edu.agh.wiet.neo4jlab.service.NodeRelationshipService;
 
 @SpringBootApplication
 @EnableTransactionManagement
 public class App implements CommandLineRunner {
 
 	private final GraphPopulator graphPopulator;
-	private final StockItemRelationshipRepository stockItemRelationshipRepository;
+	private final NodeRelationshipService nodeRelationshipService;
 
 	@Autowired
-	public App(GraphPopulator graphPopulator, StockItemRelationshipRepository stockItemRelationshipRepository) {
+	public App(GraphPopulator graphPopulator, NodeRelationshipService nodeRelationshipService) {
 		this.graphPopulator = graphPopulator;
-		this.stockItemRelationshipRepository = stockItemRelationshipRepository;
+		this.nodeRelationshipService = nodeRelationshipService;
 	}
 
 	public static void main(String[] args) {
@@ -37,6 +30,6 @@ public class App implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		graphPopulator.populate();
 
-		Iterable<StockItemRelationship> res = stockItemRelationshipRepository.findAll();
+		CompanyRelationshipAggregate res = nodeRelationshipService.getAllCompanyRelationships("Januszex");
 	}
 }

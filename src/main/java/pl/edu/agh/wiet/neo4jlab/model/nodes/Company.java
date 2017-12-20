@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import pl.edu.agh.wiet.neo4jlab.model.relationships.CustomerRelationship;
 import pl.edu.agh.wiet.neo4jlab.model.relationships.StockItemRelationship;
+import pl.edu.agh.wiet.neo4jlab.model.relationships.WorkerRelationship;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +31,9 @@ public class Company {
 
     @Relationship(type = "SELLS_FOR_PRICE")
     private Set<StockItemRelationship> stockItems = new HashSet<>();
+
+    @Relationship(type = "WORKS_IN", direction = "INCOMING")
+    private Set<WorkerRelationship> workers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -69,5 +73,17 @@ public class Company {
 
     public void addStockItem(StockItemRelationship item) {
         stockItems.add(item);
+    }
+
+    public Set<WorkerRelationship> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(Set<WorkerRelationship> workers) {
+        this.workers = workers;
+    }
+
+    public void addWorker(WorkerRelationship worker) {
+        workers.add(worker);
     }
 }
